@@ -1,4 +1,5 @@
 using API.Data;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +17,24 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//Add CORS support
+var corsBuilder = new CorsPolicyBuilder();
+corsBuilder.AllowAnyHeader();
+corsBuilder.AllowAnyMethod();
+corsBuilder.WithOrigins("https://localhost:4200");
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", corsBuilder.Build());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+ // Configure the HTTP request pipeline.
+app.UseCors("AllowLocalhost");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
