@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, ReplaySubject } from 'rxjs';
+import { catchError, map, of, ReplaySubject } from 'rxjs';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -13,16 +13,23 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any){
+  login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
-        map((response: User) => {
-          const user = response;
-          if (user) {
-            localStorage.setItem('user', JSON.stringify(user));
-            this.currentUserSource.next(user);
-          }
-        })
-      );
+      map((response) => {
+        const user = response;
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError((error) => {
+        console.error(error);
+        return of(false);
+      })
+    );
   }
 
   register(model: any){
