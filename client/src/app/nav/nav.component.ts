@@ -25,15 +25,8 @@ export class NavComponent implements OnInit {
         response => {
           if (response) {
             this.router.navigateByUrl('/members');
-          } else {
-            this.toastr.error('Invalid username or password');
-          }
-        },
-        error => {
-          console.error(error);
-          this.toastr.error(error.error);
-        }
-      );
+          } else {}
+        })
   }
 
   logout(){
