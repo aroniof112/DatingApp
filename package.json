@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@angular/platform-browser": "^13.2.5"
+  }
+}
