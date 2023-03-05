@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/file-upload/file-uploader.class';
+import { NgxFileDropEntry } from 'ngx-file-drop';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Photo } from 'src/app/_models/photo';
@@ -14,23 +16,52 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./photo-editor.component.css']
 })
 
-export class PhotoEditorComponent implements OnInit{
+export class PhotoEditorComponent implements OnInit {
   @Input() member!: Member;
-  uploader!: FileUploader;
   hasBaseDropzoneOver = false;
   baseUrl = environment.apiUrl;
   user?: User | null;
+  public fileOver: boolean = false;
 
-  constructor(private accountService: AccountService, private memberService: MembersService) { 
+  constructor(private accountService: AccountService, private memberService: MembersService, private http: HttpClient) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
-  
+
   ngOnInit(): void {
-    this.initializeUploader();
   }
 
-  fileOverBase(e: any) {
-    this.hasBaseDropzoneOver = e;
+  public fileOverBase(e: any): void {
+    this.fileOver = e;
+  }
+
+  public fileDropped(files: NgxFileDropEntry[]) {
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          this.uploadFile(file);
+        });
+      }
+    }
+  }
+
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('File', file, file.name);
+
+    const headers = {
+      'Authorization': 'Bearer ' + this.user!.token
+    };
+
+    this.http.post(this.baseUrl + 'users/add-photo', formData, { headers }).subscribe((response: any) => {
+      const photo = response;
+      this.member.photos.push(photo);
+      if (photo.isMain) {
+        this.user!.photoUrl = photo.url;
+        this.member.photoUrl = photo.url;
+        this.accountService.setCurrentUser(this.user!);
+      }
+    });
   }
 
   setMainPhoto(photo: Photo) {
@@ -51,27 +82,6 @@ export class PhotoEditorComponent implements OnInit{
     this.memberService.deletePhoto(photoId).subscribe(() => {
       this.member.photos = this.member.photos.filter(x => x.id !== photoId);
     })
-  }
-
-  initializeUploader() {
-    this.uploader = new FileUploader({
-      url: this.baseUrl + 'users/add-photo',
-      authToken: 'Bearer ' + this.user!.token,
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
-    });
-
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    }
-
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
-      const photo = JSON.parse(response);
-      this.member.photos.push(photo);
-    }
   }
 
 }

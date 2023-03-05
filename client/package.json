@@ -26,6 +26,7 @@
     "jquey": "^0.0.1-security",
     "ng2-file-upload": "1.3",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-file-drop": "^14.0.2",
     "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^16.0.2",
     "rxjs": "~7.8.0",
