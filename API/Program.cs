@@ -3,6 +3,8 @@ using API.Entities;
 using API.Extensions;
 using API.Interfaces;
 using API.Middleware;
+using API.Services;
+using API.SignalR;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +17,14 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddIdentityServices();
+builder.Services.AddSignalR();
 
 //Add CORS support
 var corsBuilder = new CorsPolicyBuilder();
 corsBuilder.AllowAnyHeader();
 corsBuilder.AllowAnyMethod();
+corsBuilder.AllowCredentials();
 corsBuilder.WithOrigins("https://localhost:4200");
 
 builder.Services.AddCors(options =>
@@ -49,6 +52,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 using var scope = app.Services.CreateScope();
