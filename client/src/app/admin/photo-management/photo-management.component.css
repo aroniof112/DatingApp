@@ -1,0 +1,12 @@
+.hover-zoom {
+    transition: transform .2s;
+  }
+  
+.hover-zoom:hover {
+    transform: scale(3.1);
+}
+
+img {
+    width: 150px;
+    height: 150px;
+}

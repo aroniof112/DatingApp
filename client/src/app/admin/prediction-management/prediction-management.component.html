@@ -1,0 +1,9 @@
+<h2>Predicted Value: {{predictedValue}}</h2>
+<div class="row">
+    <p>Date <input type="text" style="width: 100px; " [(ngModel)]="inputData.date" /></p>
+    <p>Precipitation <input type="number" style="width: 100px; " [(ngModel)]="inputData.precipitation" /></p>
+    <p>Maximum Temperature <input type="number" style="width: 100px; " [(ngModel)]="inputData.temp_max" /></p>
+    <p>Minimum Temperature <input type="number" style="width: 100px; " [(ngModel)]="inputData.temp_min" /></p>
+    <p>Wind <input type="number" style="width: 100px; " [(ngModel)]="inputData.wind" /></p>
+</div>
+<button class="btn btn btn-success" (click)="predictWeather()">Predict</button>
