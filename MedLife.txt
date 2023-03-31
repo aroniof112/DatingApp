@@ -1,0 +1,11 @@
+Website cu autentificare( identity)
+3 roluri: pacient, medic si admin (member, moredator & admin)
+pacientul isi poate introduce valoriile inimii in site si face o predictie asupra lor
+medicul poate vedea aceasta predictie
+pe baza predictiei utilizatorul isi face programare la doctorul ales
+exista mai multi doctori si mai multi utilizatori
+fiecare doctor are orar de programare diferit
+
+(optional)
+pe baza rezultatelor analizelor a pacientiilor acestia primesc prin mesaj analizele, si isi
+vor introduce singuri datele inimii in aplicatie iar pe baza rezultatului va face programare.
