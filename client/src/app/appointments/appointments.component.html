@@ -1,0 +1,9 @@
+<ul>
+    <li *ngFor="let appointment of appointments">
+        <p>Date Of Appointment: {{appointment.appointmentTime}}</p>
+        <p>Location Of Appointment: {{appointment.location}}</p>
+        <p>The Doctor Specialization: {{appointment.specialization}}</p>
+    </li>
+</ul>
+
+<button *appHasRole="['Member']" class="btn btn-success" routerLink="/appointments/make-appointment" (click)="onMakeAppointment">Make an Appointment</button>

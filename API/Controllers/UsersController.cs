@@ -50,6 +50,14 @@ namespace API.Controllers
             return Ok(users);
         }
 
+        [HttpGet("doctors")]
+        public async Task<ActionResult<AppUser>> GetDoctors()
+        {
+            var users = await _unitOfWork.UserRepository.GetDoctors();
+
+            return Ok(users);
+        }
+
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {

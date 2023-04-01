@@ -1,7 +1,6 @@
 using API.Data;
 using API.Entities;
 using API.Extensions;
-using API.Interfaces;
 using API.Middleware;
 using API.Services;
 using API.SignalR;
@@ -14,7 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 // add services to the container
 
 builder.Services.AddApplicationServices(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddIdentityServices();

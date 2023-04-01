@@ -33,6 +33,10 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { PredictionManagementComponent } from './admin/prediction-management/prediction-management.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { MakeAppointmentComponent } from './appointments/make-appointment/make-appointment.component';
+import { DoctorsComponent } from './doctors/doctors.component';
+import { DoctorCardComponent } from './doctors/doctor-card/doctor-card.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,10 @@ import { PredictionManagementComponent } from './admin/prediction-management/pre
     PhotoManagementComponent,
     RolesModalComponent,
     PredictionManagementComponent,
+    AppointmentsComponent,
+    MakeAppointmentComponent,
+    DoctorsComponent,
+    DoctorCardComponent,
   ],
   imports: [
     BrowserModule,

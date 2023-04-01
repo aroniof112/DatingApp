@@ -1,14 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Cringer</a>
+    <i class="fa fa-stethoscope fa-2x" aria-hidden="true"></i>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">CARDIOMED</a>
 
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
       <ng-container *ngIf="accountService.currentUser$ | async">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">Matches</a>
+        <li class="nav-item" *appHasRole="['Admin','Moderator']">
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">Pacients</a>
+        </li>
+        <li class="nav-item" *appHasRole="['Admin','Member']">
+          <a class="nav-link" routerLink="/doctors" routerLinkActive="active">Doctors</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
+          <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Appointments</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>

@@ -1,0 +1,11 @@
+<div class="card mb-4">
+    <div class="card-img-wrapper">
+        <img src="{{doctor?.photoUrl || './assets/user.png'}}" alt="{{doctor?.username}}" class="card-img-top">
+        <ul class="list-inline member-icons animate text-center">
+        <h4>{{doctor?.username}}</h4>
+        <li class="list-inline-item"><button (click)="bookAppointment()" class="btn-btn-primary">
+            <i class="fa fa-address-book-o" aria-hidden="true"></i></button>
+        </ul>
+    </div>
+</div>
+

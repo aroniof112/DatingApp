@@ -1,22 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using API.Data;
-using API.DTOs;
-using API.Entities;
-using API.Interfaces;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
+    using API.DTOs;
+    using API.Entities;
+    using API.Interfaces;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    
     public class AccountController : BaseApiController
     {
         private readonly ILogger<AccountController> _logger;
@@ -61,7 +53,6 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
-                KnownAs = user.KnownAs,
                 Gender = user.Gender
             };
         }
@@ -82,11 +73,13 @@ namespace API.Controllers
 
              return new UserDto
             {
+                Id = user.Id,
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 KnownAs = user.KnownAs,
-                Gender = user.Gender
+                Gender = user.Gender,
+                Discriminator = user.GetType().Name
             };
         }
 

@@ -27,6 +27,10 @@ namespace API.Helpers
                 .ForMember(dest => dest.RecipientPhotoUrl, opt => opt.MapFrom(src => 
                     src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+            CreateMap<AppointmentDto, Appointment>();
+            CreateMap<AppUser, DoctorDto>()
+            .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName))
+            .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
         }
     }
 }

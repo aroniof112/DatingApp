@@ -13,6 +13,9 @@ export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  currentUserID$ = this.currentUser$.pipe(
+    map(user => user?.id)
+  );
 
   constructor(private http: HttpClient, private presence: PresenceService) { }
 
@@ -55,6 +58,7 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
 
+
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
@@ -67,4 +71,5 @@ export class AccountService {
     const decodedPayload = Buffer.from(encodedPayload, 'base64').toString('utf-8');
     return JSON.parse(decodedPayload);  
   }
+
 }

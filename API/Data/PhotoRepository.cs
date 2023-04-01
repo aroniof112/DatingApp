@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.DTOs;
-using API.Entities;
-using API.Interfaces;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
+    using API.DTOs;
+    using API.Entities;
+    using API.Interfaces;
+    using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
+    
     public class PhotoRepository : IPhotoRepository
     {
         public readonly DataContext _context;

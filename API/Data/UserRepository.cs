@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.DTOs;
-using API.Entities;
-using API.Helpers;
-using API.Interfaces;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
+    using API.DTOs;
+    using API.Entities;
+    using API.Helpers;
+    using API.Interfaces;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
+    
     public class UserRepository : IUserRepository
     {
         public readonly DataContext _context;
@@ -57,11 +54,17 @@ namespace API.Data
                     userParams.PageNumber, userParams.PageSize);
         } 
 
-        public async Task<IEnumerable<AppUser>> GetUserAsync()
+        public async Task<IEnumerable<DoctorDto>> GetDoctors()
         {
-            return await _context.Users
+            var doctors = await _context.Users
                 .Include(p => p.Photos)
+                .Include(p => p.UserRoles)
+                .Where(u => u.UserRoles.Any(ur => ur.Role.Name == "Moderator")
+                    && !u.UserRoles.Any(ur => ur.Role.Name == "Admin"))
+                .ProjectTo<DoctorDto>(_mapper.ConfigurationProvider) // Mapping configuration
                 .ToListAsync();
+
+            return doctors;
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
@@ -96,5 +99,7 @@ namespace API.Data
                 .Where(p => p.Photos.Any(p => p.Id == photoId))
                 .FirstOrDefaultAsync();
         }
+
+     
     }
 }

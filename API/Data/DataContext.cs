@@ -20,9 +20,11 @@ namespace API.Data
 
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Group> Groups {get; set; }
-        public DbSet<Photo> Photos {get; set;}
-        public DbSet<Connection> Connections {get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Photo> Photos { get; set;}
+        public DbSet<Connection> Connections { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -67,6 +69,20 @@ namespace API.Data
 
             builder.Entity<Photo>()
                 .HasQueryFilter(p => p.IsApproved);
+
+            builder.Entity<Appointment>()
+                .HasKey(a => new { a.PacientId, a.DoctorId });
+            
+            builder.Entity<Appointment>()
+                .HasOne(a => a.Pacient)
+                .WithMany(u => u.Appointments)
+                .HasForeignKey(a => a.PacientId);
+
+            builder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithMany(d => d.Appointments)
+                .HasForeignKey(a => a.DoctorId);
+                
         }
     }
 }

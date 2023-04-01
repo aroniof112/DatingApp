@@ -17,6 +17,32 @@ namespace API.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
 
+            modelBuilder.Entity("API.Entities.Appointment", b =>
+                {
+                    b.Property<int>("PacientId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Specialization")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PacientId", "DoctorId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("API.Entities.AppRole", b =>
                 {
                     b.Property<int>("Id")
@@ -69,6 +95,10 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -144,6 +174,8 @@ namespace API.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
                 });
 
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
@@ -363,6 +395,55 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("API.Data.Doctor", b =>
+                {
+                    b.HasBaseType("API.Entities.AppUser");
+
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Specialization")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Doctor");
+                });
+
+            modelBuilder.Entity("API.Entities.Pacient", b =>
+                {
+                    b.HasBaseType("API.Entities.AppUser");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Results")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Pacient");
+                });
+
+            modelBuilder.Entity("API.Entities.Appointment", b =>
+                {
+                    b.HasOne("API.Data.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Pacient", "Pacient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PacientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Pacient");
+                });
+
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.HasOne("API.Entities.AppRole", "Role")
@@ -497,6 +578,16 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Group", b =>
                 {
                     b.Navigation("Connections");
+                });
+
+            modelBuilder.Entity("API.Data.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("API.Entities.Pacient", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

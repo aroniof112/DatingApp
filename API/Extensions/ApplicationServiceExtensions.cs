@@ -21,7 +21,7 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IWeatherPredictorService, WeatherPredictor>();
+            //services.AddScoped<IWeatherPredictorService, WeatherPredictor>();
             services.AddSingleton(new MLContext());
             services.AddScoped<LogUserActivity>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

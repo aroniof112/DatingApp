@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Interfaces;
-using AutoMapper;
 
 namespace API.Data
 {
+    using API.Interfaces;
+    using AutoMapper;
+
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IMapper _mapper;
@@ -24,6 +21,8 @@ namespace API.Data
         public ILikesRepository LikesRepository => new LikesRepository(_context);
 
         public IPhotoRepository PhotoRepository => new PhotoRepository(_context, _mapper);
+
+        public IAppointmentRepository AppointmentRepository => new AppointmentRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

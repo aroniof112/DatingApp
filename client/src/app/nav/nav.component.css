@@ -7,3 +7,8 @@ img {
     border: 2px solid #fff;
     display: inline;
 }
+
+.fa-stethoscope{
+    color: mediumblue;
+    margin-right: 15px;
+}

@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Create Appointment</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="appointmentTime">Appointment Time:</label>
+        <input type="datetime-local" class="form-control" id="appointmentTime" name="appointmentTime" 
+            [(ngModel)]="appointment.appointmentTime" required  min="{{ getCurrentDateTimeString() }}">
+      </div>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <select id="location" name="location" [(ngModel)]="appointment.location">
+            <option *ngFor="let option of locationOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="specialization">Specialization:</label>
+        <select id="specialization" name="specialization" [(ngModel)]="appointment.specialization">
+            <option *ngFor="let option of specializationOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="doctorId">Doctor:</label>
+        <select class="form-control" id="doctorId" name="doctorId" [(ngModel)]="appointment.doctorId" required>
+          <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.username }}</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary btn-success">Create</button>
+        <button (click)="cancel()" class="btn btn-primary btn-error">Cancel</button>
+      </div>
+    </form>
+</div>
