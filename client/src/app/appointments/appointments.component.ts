@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Appointment } from '../_models/appointment';
-import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { AppointmentService } from '../_services/appointment.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-appointments',
@@ -13,11 +13,15 @@ import { Router } from '@angular/router';
 export class AppointmentsComponent implements OnInit{
   appointments!: Appointment[];
 
-  constructor(private router: Router, private appointmentService: AppointmentService, private accountService: AccountService) { }
+  constructor(
+    private router: Router, 
+    private appointmentService: AppointmentService, 
+    private accountService: AccountService,
+    private toastr: ToastrService)
+    { }
 
   ngOnInit(): void {
     this.getAppointmentsForCurrentUser();
-
   }
 
   getAppointmentsForCurrentUser()
@@ -28,6 +32,19 @@ export class AppointmentsComponent implements OnInit{
           .subscribe(appointments => this.appointments = appointments);
       }
     });
+  }
+
+  onDeleteAppointment(appointment: Appointment){
+    this.appointmentService.deleteAppointment(appointment).subscribe(() => {
+      this.getAppointmentsForCurrentUser();
+      this.toastr.success("Appointment deleted successfully!");
+    }, error => {
+      this.toastr.error(error);
+    })
+  }
+
+  onUpdateAppointment(appointment: Appointment) {
+    this.appointmentService.setAppointment(appointment);
   }
 
   onMakeAppointment(){

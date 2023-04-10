@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Entities;
-using API.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ML;
 using Microsoft.ML;
 
 namespace API.Controllers
@@ -15,39 +9,30 @@ namespace API.Controllers
     {
         private readonly ILogger<PredictController> _logger;
         private readonly MLContext _mlContext;
-        private readonly PredictionEngine<InputData, OutputData> _predictionEngine;
+        private readonly PredictionEnginePool<InputData, OutputData> _predictionEnginePool;
 
-        public PredictController(MLContext mlContext , ILogger<PredictController> logger)
+        public PredictController(PredictionEnginePool<InputData, OutputData> predictionEnginePool, MLContext mlContext , ILogger<PredictController> logger)
         {
             _mlContext = mlContext;
-            _logger = logger;
-            
-            var model = _mlContext.Model.Load("assets/MLModel1.zip", out var modelSchema);
-
-             _predictionEngine = _mlContext.Model.CreatePredictionEngine<InputData, OutputData>(model);
+            _logger = logger; 
+            _predictionEnginePool = predictionEnginePool;
         }
 
         [HttpPost("prediction")]
-        public ActionResult<OutputData> GetWeather([FromBody] InputData inputData)
+        public ActionResult<OutputData> GetHeartResult([FromBody] InputData inputData)
         {
             if (inputData == null) return BadRequest("input data null");
             //Call the Class Prediction
-            var prediction = _predictionEngine.Predict(inputData);
+
+            var predictionEngine = _predictionEnginePool.GetPredictionEngine();
+
+            var prediction = predictionEngine.Predict(inputData);
 
             if(prediction == null) return BadRequest("prediction data null");
 
-            var predictedValue = prediction.Prediction;
+            var scorePercentages = prediction.Score;
 
-            var scorePercentages = prediction.Score
-                .Select(score => (score * 1000).ToString("P0"))
-                .ToArray();
-
-            var response = new OutputData
-            {
-                Prediction = predictedValue
-            };
-
-            return Ok(response);
+            return Ok(prediction);
         }
 
     }

@@ -1,15 +1,15 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top ">
   <div class="container">
-    <i class="fa fa-stethoscope fa-2x" aria-hidden="true"></i>
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">CARDIOMED</a>
+    <i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i>
+    <a class="navbar-brand text" routerLink="/" routerLinkActive="active">CARDIOMED</a>
 
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
       <ng-container *ngIf="accountService.currentUser$ | async">
         <li class="nav-item" *appHasRole="['Admin','Moderator']">
-          <a class="nav-link" routerLink="/members" routerLinkActive="active">Pacients</a>
+          <a class="nav-link text" routerLink="/members" routerLinkActive="active">Pacients</a>
         </li>
         <li class="nav-item" *appHasRole="['Admin','Member']">
-          <a class="nav-link" routerLink="/doctors" routerLinkActive="active">Doctors</a>
+          <a class="nav-link text" routerLink="/doctors" routerLinkActive="active">Doctors</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Appointments</a>
@@ -20,15 +20,12 @@
         <li *appHasRole="['Admin','Moderator']" class="nav-item">
           <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/errors" routerLinkActive="active">Erros</a>
-        </li>
       </ng-container>
     </ul>
 
     <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
       <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
-      <a class="dropdown-toggle text-light" style="text-decoration: none;" dropdownToggle>
+      <a class="dropdown-toggle text-light" style="text-decoration: none; color: black;" dropdownToggle>
         <tr></tr> Welcome {{user.username | titlecase}}
       </a>
       <div class="dropdown-menu mt-3" *dropdownMenu>

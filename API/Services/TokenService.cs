@@ -32,7 +32,7 @@ namespace API.Services
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role))); // add the roles to the clims, users can't modify their roles
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role))); // add the roles to the claims, users can't modify their roles
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 

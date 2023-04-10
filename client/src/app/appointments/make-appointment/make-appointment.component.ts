@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/_models/appointment';
+import { AppointmentForAddingDto } from 'src/app/_models/appointmentForAddingDto';
 import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
 import { AccountService } from 'src/app/_services/account.service';
@@ -41,18 +42,27 @@ export class MakeAppointmentComponent implements OnInit{
       this.appointment.pacientId = userId ?? 0;
     })
 
-    this.appointmentService.getCheckAppointment(this.appointment.pacientId, this.appointment.doctorId)
-    .subscribe(result => {
-      if (result != null) {
-        this.toastr.error("You already have an appointment with this doctor.");
-        this.router.navigate(['/appointments']);
-      } else {
-        this.appointmentService.addAppointment(this.appointment)
-          .subscribe(() => {
-            this.toastr.success('Appointment created successfully!');
-            
-          });
+    this.checkAppointment();
+  }
+
+  checkAppointment()
+  {
+    this.appointmentService.checkAppointment(this.appointment.pacientId, this.appointment.doctorId)
+      .subscribe(result => {
+        // Handle the result here
+        if (result === true)
+        {
+          this.toastr.error("You already have an appointment to this doctor");
+          this.router.navigateByUrl("/appointments");
+        } else{
+          this.appointmentService.addAppointment(this.appointment).subscribe(response => {
+            this.toastr.info("Appointment added");
+            this.router.navigateByUrl("/appointments");
+          })
         }
+      }, error => {
+        // Handle errors here
+        this.toastr.error("Error in adding the appointment");
       });
   }
 
@@ -65,7 +75,6 @@ export class MakeAppointmentComponent implements OnInit{
   cancel(){
     this.router.navigateByUrl("/appointments");
   }
-
 
   getCurrentDateTimeString(): string {
     const now = new Date();

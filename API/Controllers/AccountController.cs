@@ -28,33 +28,38 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<PacientDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
-            var user = _mapper.Map<AppUser>(registerDto);
+            var pacient = new Pacient
+            {
+                UserName = registerDto.Username.ToLower(),
+                Gender = registerDto.Gender,
+                City = registerDto.City,
+                Country = registerDto.Country,
+                KnownAs = registerDto.KnownAs,
+                Interests = "",
+                Introduction = "Introduction",
+                LookingFor = registerDto.Gender
+            };
 
-            user.UserName = registerDto.Username.ToLower();
-
-            user.Interests = user.UserName;
-            user.Introduction = user.UserName;
-            user.LookingFor = user.Gender == "male" ? "female" : "male"; ;
-            
-
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var result = await _userManager.CreateAsync(pacient, registerDto.Password);
 
             if(!result.Succeeded) return BadRequest(result.Errors);
 
-            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            var roleResult = await _userManager.AddToRoleAsync(pacient, "Member");
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
-            return new UserDto
+            var pacientDto = new PacientDto
             {
-                Username = user.UserName,
-                Token = await _tokenService.CreateToken(user),
-                Gender = user.Gender
+                Username = pacient.UserName,
+                Token = await _tokenService.CreateToken(pacient),
+                Gender = pacient.Gender
             };
+
+            return pacientDto;
         }
 
         [HttpPost("login")]

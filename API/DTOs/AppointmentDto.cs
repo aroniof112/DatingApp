@@ -7,7 +7,8 @@ namespace API.DTOs
 {
     public class AppointmentDto
     {
-        public int Id { get; set; }
+        public string PacientUsername { get; set; }
+        public string DoctorUsername { get; set; }
         public DateTime AppointmentTime { get; set; }
         public string Location { get; set; }
         public string Specialization { get; set; }

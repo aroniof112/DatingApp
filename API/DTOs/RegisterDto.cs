@@ -17,6 +17,7 @@ namespace API.DTOs
 
         [Required]
         [StringLength(8, MinimumLength = 4)]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{4,8}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, and one symbol")]
         public string Password { get; set; }
     }
 }

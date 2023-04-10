@@ -6,12 +6,13 @@ namespace API.Interfaces
     using API.Entities;
     public interface IAppointmentRepository
     {
-        void AddAppointmentAsync(AppointmentDto appointment);
+        void AddAppointmentAsync(AppointmentForAddingDto appointment);
         void UpdateAppointmentAsync(AppointmentDto appointment);
-        Task<IEnumerable<Appointment>> GetAppointmentsForUser(int currentUserId);
-        Task<Appointment> GetAppointmentByIdAsync(int pacientId, int doctorId);
-        bool GetAppointmentCheck(AppointmentDto appointment);
-        void DeleteAppointment(Appointment appointment);
+        Task<IEnumerable<AppointmentDto>> GetAppointmentsForUser(int currentUserId);
+        Task<AppointmentDto> GetAppointmentByIdAsync(int pacientId, int doctorId);
+        Task<AppointmentDto> GetAppointment(AppointmentDto appointment);
+        bool GetAppointmentCheck(AppointmentForAddingDto appointment);
+        void DeleteAppointment(AppointmentDto appointment);
 
     }
 }

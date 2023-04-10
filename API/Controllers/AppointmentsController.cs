@@ -5,9 +5,10 @@ namespace API.Controllers
     using API.Entities;
     using API.Interfaces;
     using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    // [Authorize]
+    [Authorize]
     public class AppointmentsController : BaseApiController
     {
         private readonly ILogger<AppointmentsController> _logger;
@@ -24,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsForUser(int id)
+        public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAppointmentsForUser(int id)
         {
             var appointments = await _unitOfWork.AppointmentRepository.GetAppointmentsForUser(id);
 
@@ -34,7 +35,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{pacientId}/{doctorId}", Name = "GetAppointment")]
-        public async Task<ActionResult<Appointment>> GetAppointment(int pacientId, int doctorId)
+        public async Task<ActionResult<AppointmentDto>> GetAppointment(int pacientId, int doctorId)
         {
             var appointment = await _unitOfWork.AppointmentRepository.GetAppointmentByIdAsync(pacientId, doctorId);
             
@@ -43,9 +44,17 @@ namespace API.Controllers
             return Ok(appointment);
         }
 
+        [HttpGet("check-appointment/{pacientId}/{doctorId}")]
+        public async Task<bool> CheckAppointment(int pacientId, int doctorId)
+        {
+            var canAddAppointment = await _unitOfWork.AppointmentRepository.GetAppointmentByIdAsync(pacientId, doctorId);
 
-        [HttpPost]
-        public async Task<ActionResult<AppointmentDto>> AddAppointment(AppointmentDto appointment)
+            return canAddAppointment != null;
+        }
+
+
+        [HttpPost("add")]
+        public async Task<ActionResult<AppointmentForAddingDto>> AddAppointment(AppointmentForAddingDto appointment)
         {
             if (appointment == null) return NotFound("No appointment");
 
@@ -66,14 +75,25 @@ namespace API.Controllers
             return BadRequest("Problem adding appointment");
         }
 
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateAppointment([FromBody] AppointmentDto appointmentDto)
+        {
+
+            _unitOfWork.AppointmentRepository.UpdateAppointmentAsync(appointmentDto);
+
+            if (await _unitOfWork.Complete()) return NoContent();
+
+            return BadRequest("Failed to update appointment");
+        }
+
         [HttpDelete("delete/{pacientId}/{doctorId}")]
         public async Task<ActionResult> DeleteAppointment(int pacientId, int doctorId)
         {
-            var currentAppointment = await _unitOfWork.AppointmentRepository.GetAppointmentByIdAsync(pacientId, doctorId);
+            var appointment = await _unitOfWork.AppointmentRepository.GetAppointmentByIdAsync(pacientId, doctorId);
 
-            if (currentAppointment == null) return NotFound("No appointment to delete");
+            if (appointment == null) return NotFound("No appointment to delete");
 
-            _unitOfWork.AppointmentRepository.DeleteAppointment(currentAppointment);
+            _unitOfWork.AppointmentRepository.DeleteAppointment(appointment);
 
             if (await _unitOfWork.Complete()) return Ok();
 

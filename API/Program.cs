@@ -7,6 +7,7 @@ using API.SignalR;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ML;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddIdentityServices();
 builder.Services.AddSignalR();
+
+//ading prediction engine pool
+builder.Services.AddPredictionEnginePool<InputData, OutputData>()
+    .FromFile("assets/MLModel1.zip");
 
 //Add CORS support
 var corsBuilder = new CorsPolicyBuilder();

@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "@angular/platform-browser": "^13.2.5"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16"
   }
 }

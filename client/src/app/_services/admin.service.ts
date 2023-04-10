@@ -35,7 +35,7 @@ export class AdminService {
     return this.http.post(this.baseUrl + 'admin/reject-photo/' + photoId, {});
   }
 
-  predictWeather(inputData: InputData): Observable<OutputData> {
+  predictHeart(inputData: InputData): Observable<OutputData> {
     return this.http.post<OutputData>(this.baseUrl + 'predict/prediction', inputData);
   }
 }

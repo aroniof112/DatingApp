@@ -7,23 +7,56 @@ namespace API.Entities
    [DataContract]
    public class InputData
     {
-        [ColumnName("date"), LoadColumn(0), DataMember]
-        public string Date { get; set; }
+        [ColumnName(@"HeartDisease")]
+        public string HeartDisease { get; set; }
 
-        [ColumnName("precipitation"), LoadColumn(1), DataMember]
-        public float Precipitation { get; set; }
+        [ColumnName(@"BMI")]
+        public float BMI { get; set; }
 
-        [ColumnName("temp_max"), LoadColumn(2), DataMember]
-        public float Temp_max { get; set; }
+        [ColumnName(@"Smoking")]
+        public bool Smoking { get; set; }
 
-        [ColumnName("temp_min"), LoadColumn(3), DataMember]
-        public float Temp_min { get; set; }
+        [ColumnName(@"AlcoholDrinking")]
+        public string AlcoholDrinking { get; set; }
 
-        [ColumnName("wind"), LoadColumn(4), DataMember]
-        public float Wind { get; set; }
+        [ColumnName(@"Stroke")]
+        public bool Stroke { get; set; }
 
-        [ColumnName("weather"), LoadColumn(5), DataMember]
-        public string Weather { get; set; }
+        [ColumnName(@"PhysicalHealth")]
+        public float PhysicalHealth { get; set; }
+
+        [ColumnName(@"MentalHealth")]
+        public float MentalHealth { get; set; }
+
+        [ColumnName(@"DiffWalking")]
+        public bool DiffWalking { get; set; }
+
+        [ColumnName(@"Sex")]
+        public string Sex { get; set; }
+
+        [ColumnName(@"AgeCategory")]
+        public float AgeCategory { get; set; }
+
+        [ColumnName(@"Race")]
+        public string Race { get; set; }
+
+        [ColumnName(@"Diabetic")]
+        public string Diabetic { get; set; }
+
+        [ColumnName(@"PhysicalActivity")]
+        public bool PhysicalActivity { get; set; }
+
+        [ColumnName(@"GenHealth")]
+        public string GenHealth { get; set; }
+
+        [ColumnName(@"SleepTime")]
+        public float SleepTime { get; set; }
+
+        [ColumnName(@"Asthma")]
+        public bool Asthma { get; set; }
+
+        [ColumnName(@"KidneyDisease")]
+        public bool KidneyDisease { get; set; }
     }
 
 }

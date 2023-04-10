@@ -17,6 +17,7 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { MakeAppointmentComponent } from './appointments/make-appointment/make-appointment.component';
 import { DoctorsComponent } from './doctors/doctors.component';
+import { UpdateAppointmentsComponent } from './appointments/update-appointments/update-appointments.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -31,6 +32,7 @@ const routes: Routes = [
       {path: 'appointments', component: AppointmentsComponent},
       {path: 'appointments/make-appointment', component: MakeAppointmentComponent},
       {path: 'doctors', component: DoctorsComponent},
+      {path: 'appointments/update-appointments', component: UpdateAppointmentsComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
     ]

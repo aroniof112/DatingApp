@@ -1,9 +1,22 @@
-<ul>
-    <li *ngFor="let appointment of appointments">
-        <p>Date Of Appointment: {{appointment.appointmentTime}}</p>
-        <p>Location Of Appointment: {{appointment.location}}</p>
-        <p>The Doctor Specialization: {{appointment.specialization}}</p>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let appointment of appointments">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-0">Appointment on {{ appointment.appointmentTime | date:'medium' }}</h5>
+          <p class="mb-1">{{ appointment.specialization }} at {{ appointment.location }}</p>
+        </div>
+        <div>
+          <button class="btn btn-primary btn-success btn-sm mr-2 update" routerLink="/appointments/update-appointments" (click)="onUpdateAppointment(appointment)">
+            <h6>Update</h6><fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+          </button>
+          <button class="btn btn-primary btn-sm mr-2 delete" (click)="onDeleteAppointment(appointment)">
+            <h6>Delete</h6> </button>
+          <button class="btn btn-primary btn-sm mr-2 green" routerLink="/appointments/update-appointments" (click)="onUpdateAppointment(appointment)">
+            <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+          </button>
+        </div>
+      </div>
     </li>
-</ul>
-
-<button *appHasRole="['Member']" class="btn btn-success" routerLink="/appointments/make-appointment" (click)="onMakeAppointment">Make an Appointment</button>
+  </ul>
+  
+  <button *appHasRole="['Member']" class="btn btn-success mt-3" routerLink="/appointments/make-appointment" (click)="onMakeAppointment">Make an Appointment</button>

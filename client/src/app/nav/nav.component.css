@@ -8,7 +8,38 @@ img {
     display: inline;
 }
 
-.fa-stethoscope{
-    color: mediumblue;
+.fa-heartbeat{
+    color: darkblue;
     margin-right: 15px;
+}
+
+.navbar{
+    background-color: cadetblue;
+    height: 100px;
+    opacity: 0.85;
+}
+
+.navbar-nav li {
+   margin-left: 20px;
+}
+
+.navbar-nav li a {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    line-height: 100px;
+}
+
+.dropdown-menu {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.dropdown-toggle {
+    color: #fff;
+}
+
+.text {
+    font-family:'Times New Roman', Times, serif;
+    color: darkblue;
+    font-size: 26px;
 }

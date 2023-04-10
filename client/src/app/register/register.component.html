@@ -22,7 +22,7 @@
         [type]='"password"'></app-text-input>
     <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirm Password"'
         [type]='"password"'></app-text-input>
-
+    <p>Password must contain at least one uppercase letter, one lowercase letter, and one symbol</p>
     <div class="row" *ngIf="validationErrors.length > 0">
         <ul class="text-danger">
             <li *ngFor="let error of validationErrors">

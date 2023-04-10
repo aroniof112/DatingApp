@@ -18,8 +18,6 @@ namespace API.Data
 
         public IMessageRepository MessageRepository => new MessageRepository(_context, _mapper);
 
-        public ILikesRepository LikesRepository => new LikesRepository(_context);
-
         public IPhotoRepository PhotoRepository => new PhotoRepository(_context, _mapper);
 
         public IAppointmentRepository AppointmentRepository => new AppointmentRepository(_context, _mapper);

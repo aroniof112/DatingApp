@@ -1,4 +1,6 @@
 
+using API.DTOs;
+
 namespace API.Entities
 {
     public class Pacient : AppUser

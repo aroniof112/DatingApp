@@ -1,9 +1,107 @@
-<h2>Predicted Value: {{predictedValue}}</h2>
-<div class="row">
-    <p>Date <input type="text" style="width: 100px; " [(ngModel)]="inputData.date" /></p>
-    <p>Precipitation <input type="number" style="width: 100px; " [(ngModel)]="inputData.precipitation" /></p>
-    <p>Maximum Temperature <input type="number" style="width: 100px; " [(ngModel)]="inputData.temp_max" /></p>
-    <p>Minimum Temperature <input type="number" style="width: 100px; " [(ngModel)]="inputData.temp_min" /></p>
-    <p>Wind <input type="number" style="width: 100px; " [(ngModel)]="inputData.wind" /></p>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h4>Health Information</h4>
+        <div class="form-group">
+            <p>Sex 
+                <select [(ngModel)]="inputData.sex" style="width: 100px;">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="ageCategory">Age</label>
+           <input type="number" class="form-control" id="ageCategory" [(ngModel)]="inputData.ageCategory">
+        </div>
+        <div class="form-group">
+           <p>Race 
+            <select [(ngModel)]="inputData.race" style="width: 100px;">
+              <option value="White">White</option>
+              <option value="Black">Black</option>
+              <option value="Asian">Asian</option>
+              <option value="Other">Other</option>
+            </select>
+            </p>
+        </div>
+        <div class="form-group">
+          <label for="bmi">BMI</label>
+          <input type="number" class="form-control" id="bmi" [(ngModel)]="inputData.bmi">
+        </div>
+        <div class="form-group">
+            <p>Smoking 
+                <select [(ngModel)]="inputData.smoking" style="width: 100px;">
+                    <option [ngValue]="true">Yes</option>
+                    <option [ngValue]="false">No</option>
+                  </select>
+            </p>
+        </div>
+        <div class="form-group">
+          <label for="alcoholDrinking">Alcohol Drinking</label>
+          <input type="text" class="form-control" id="alcoholDrinking" [(ngModel)]="inputData.alcoholDrinking">
+        </div>
+        <div class="form-group">
+          <label for="stroke">Stroke</label>
+          <input type="text" class="form-control" id="stroke" [(ngModel)]="inputData.stroke">
+        </div>
+        <div class="form-group">
+          <label for="physicalHealth">Physical Health</label>
+          <input type="number" class="form-control" id="physicalHealth" [(ngModel)]="inputData.physicalHealth">
+        </div>
+        <div class="form-group">
+          <label for="mentalHealth">Mental Health</label>
+          <input type="number" class="form-control" id="mentalHealth" [(ngModel)]="inputData.mentalHealth">
+        </div>
+      </div>
+      <div class="col">
+        <h4>Medical History</h4>
+        <div class="form-group">
+          <label for="diffWalking">Difficulty Walking</label>
+          <input type="text" class="form-control" id="diffWalking" [(ngModel)]="inputData.diffWalking">
+        </div>
+        <div class="form-group">
+          <label for="diabetic">Diabetic</label>
+          <input type="text" class="form-control" id="diabetic" [(ngModel)]="inputData.diabetic">
+        </div>
+        <div class="form-group">
+          <label for="physicalActivity">Physical Activity</label>
+          <input type="text" class="form-control" id="physicalActivity" [(ngModel)]="inputData.physicalActivity">
+        </div>
+        <div class="form-group">
+          <label for="genHealth">Gen Health</label>
+          <input type="text" class="form-control" id="genHealth" [(ngModel)]="inputData.genHealth">
+        </div>
+        <div class="form-group">
+            <label for="sleepTime">Sleep Time</label>
+            <input type="text" class="form-control" id="sleepTime" [(ngModel)]="inputData.sleepTime">
+        </div>
+        <div class="form-group">
+            <label for="asthma">Asthma</label>
+            <input type="text" class="form-control" id="asthma" [(ngModel)]="inputData.asthma">
+        </div>
+        <div class="form-group">
+            <label for="Kidney Disease">Kidney Disease</label>
+            <input type="text" class="form-control" id="Kidney Disease" [(ngModel)]="inputData.kidneyDisease">
+        </div>
+    </div>
 </div>
-<button class="btn btn btn-success" (click)="predictWeather()">Predict</button>
+<button class="btn btn btn-success" (click)="predictHeart()">Predict</button>
+
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>You have a heart problem. Please make an appointment with your doctor.</p>
+      <button (click)="onMakeAppointment()" class="btn btn-primary btn-success center">Make an Appointment</button>
+    </div>
+  </div>
+
+  <div id="myModal2" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>You don't have a heart problem. Take care.</p>
+    </div>
+  </div>
+
+
+

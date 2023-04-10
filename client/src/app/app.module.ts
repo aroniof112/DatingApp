@@ -37,6 +37,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { MakeAppointmentComponent } from './appointments/make-appointment/make-appointment.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorCardComponent } from './doctors/doctor-card/doctor-card.component';
+import { UpdateAppointmentsComponent } from './appointments/update-appointments/update-appointments.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { DoctorCardComponent } from './doctors/doctor-card/doctor-card.component
     MakeAppointmentComponent,
     DoctorsComponent,
     DoctorCardComponent,
+    UpdateAppointmentsComponent,
   ],
   imports: [
     BrowserModule,

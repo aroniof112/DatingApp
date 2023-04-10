@@ -44,4 +44,17 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
+
+  body {
+    padding-top: 30px;
+    position: relative;
+    background-image: url("assets/medic-semi2.png");
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.2);
+    
+  }
+
+
+ 
+
   

@@ -1,8 +1,19 @@
 export interface InputData {
-    date : string;
-    precipitation: number;
-    temp_max: number;
-    temp_min: number;
-    wind: number;
-    weather: string;
+    heartDisease: string;
+    bmi : number;
+    smoking: boolean;
+    alcoholDrinking: string;
+    stroke: boolean;
+    physicalHealth: number;
+    mentalHealth: number;
+    diffWalking: boolean;
+    sex: string;
+    ageCategory: number;
+    race: string;
+    diabetic: string;
+    physicalActivity: boolean;
+    genHealth: string;
+    sleepTime: number;
+    asthma: boolean;
+    kidneyDisease: boolean;
 }
