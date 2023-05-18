@@ -1,9 +1,6 @@
-
 namespace API.Entities
 {
     using API.Data;
-    using API.DTOs;
-    using System.ComponentModel.DataAnnotations;
     
     public class Appointment
     {

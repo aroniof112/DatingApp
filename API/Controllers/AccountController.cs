@@ -52,6 +52,7 @@ namespace API.Controllers
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
+            //this is to set the currentId of the new user to a token (for appointments)
             var pacientDto = new PacientDto
             {
                 Username = pacient.UserName,

@@ -19,7 +19,7 @@ namespace API.Services
         public TokenService(IConfiguration config, UserManager<AppUser> userManager)
         {
             _userManager = userManager;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])); //used for sign and validate the JWT tokens
         }
 
         public async Task<string> CreateToken(AppUser user)
