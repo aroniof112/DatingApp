@@ -32,12 +32,12 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
-import { PredictionManagementComponent } from './admin/prediction-management/prediction-management.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { MakeAppointmentComponent } from './appointments/make-appointment/make-appointment.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorCardComponent } from './doctors/doctor-card/doctor-card.component';
 import { UpdateAppointmentsComponent } from './appointments/update-appointments/update-appointments.component';
+import { PredictComponent } from './predict/predict/predict.component';
 
 @NgModule({
   declarations: [
@@ -63,12 +63,12 @@ import { UpdateAppointmentsComponent } from './appointments/update-appointments/
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    PredictionManagementComponent,
     AppointmentsComponent,
     MakeAppointmentComponent,
     DoctorsComponent,
     DoctorCardComponent,
     UpdateAppointmentsComponent,
+    PredictComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +78,8 @@ import { UpdateAppointmentsComponent } from './appointments/update-appointments/
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserModule    
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

@@ -57,9 +57,26 @@ namespace API.Data
 
             var doctor = new Doctor
             {
-                UserName = "medic",
+                UserName = "Dr. Adriana-Mădălina",
                 Profession = "Doctor primar",
-                Specialization = "Ginecolog",
+                Specialization = "Cardiologie",
+                City = "Targu Mures",
+                Country = "Romania",
+                Gender = "Female",
+                Interests = "",
+                LookingFor = "",
+                Introduction = "",
+                KnownAs = ""
+            };
+
+            await userManager.CreateAsync(doctor, "Parola1$");
+            await userManager.AddToRoleAsync(doctor, "Moderator");
+
+             var doctor2 = new Doctor
+            {
+                UserName = "Dr. Rădulescu Daniel",
+                Profession = "Doctor primar",
+                Specialization = "Cardiologie",
                 City = "Targu Mures",
                 Country = "Romania",
                 Gender = "Male",
@@ -69,8 +86,25 @@ namespace API.Data
                 KnownAs = ""
             };
 
-            await userManager.CreateAsync(doctor, "Parola1$");
-            await userManager.AddToRoleAsync(doctor, "Moderator");
+            await userManager.CreateAsync(doctor2, "Parola1$");
+            await userManager.AddToRoleAsync(doctor2, "Moderator");
+
+             var doctor3 = new Doctor
+            {
+                UserName = "Dr. Suciu Mihaela",
+                Profession = "Doctor primar",
+                Specialization = "Ginecologie",
+                City = "Targu Mures",
+                Country = "Romania",
+                Gender = "Female",
+                Interests = "",
+                LookingFor = "",
+                Introduction = "",
+                KnownAs = ""
+            };
+
+            await userManager.CreateAsync(doctor3, "Parola1$");
+            await userManager.AddToRoleAsync(doctor3, "Moderator");
         }
     }
 }

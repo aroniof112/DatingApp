@@ -50,6 +50,18 @@ export class AccountService {
     )
   }
 
+  registerDoctor(model:any) {
+    return this.http.post<User>(this.baseUrl + 'account/registerDoctor', model).pipe(
+      map(user => {
+        if (user) {
+          this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
+        }
+        return user;
+      })
+    )
+  }
+
   setCurrentUser(user: User | null) {
     user!.roles = [];
     const roles = this.getDecodedToken(user!.token).role;

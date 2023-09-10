@@ -1,15 +1,15 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InputData } from 'src/app/_models/inputData';
 import { OutputData } from 'src/app/_models/outputData';
-import { AdminService } from 'src/app/_services/admin.service';
+import { PredictService } from 'src/app/_services/predict.service';
 
 @Component({
-  selector: 'app-prediction-management',
-  templateUrl: './prediction-management.component.html',
-  styleUrls: ['./prediction-management.component.css']
+  selector: 'app-predict',
+  templateUrl: './predict.component.html',
+  styleUrls: ['./predict.component.css']
 })
-export class PredictionManagementComponent implements OnInit{
+export class PredictComponent implements OnInit{
 
   inputData: InputData = {
     heartDisease: 'string',
@@ -33,14 +33,14 @@ export class PredictionManagementComponent implements OnInit{
 
   predictedValue!: OutputData["prediction"];
 
-  constructor (private adminService: AdminService, private router: Router) {}
+  constructor (private predictService: PredictService, private router: Router) {}
 
   ngOnInit(): void {
    
   }
 
   predictHeart() {
-    this.adminService.predictHeart(this.inputData).subscribe((result: OutputData) => {
+    this.predictService.predictHeart(this.inputData).subscribe((result: OutputData) => {
       this.predictedValue = result.prediction;
       this.showMessage();
     })
@@ -87,8 +87,6 @@ export class PredictionManagementComponent implements OnInit{
   }
 
   onMakeAppointment(){
-    this.router.navigate(['make-appointment']);
+    this.router.navigate(['appointments/make-appointment']);
   }
-  
-
 }

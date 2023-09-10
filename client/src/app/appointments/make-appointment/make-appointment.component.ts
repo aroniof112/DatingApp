@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/_models/appointment';
-import { AppointmentForAddingDto } from 'src/app/_models/appointmentForAddingDto';
 import { User } from 'src/app/_models/user';
-import { UserParams } from 'src/app/_models/userParams';
 import { AccountService } from 'src/app/_services/account.service';
 import { AppointmentService } from 'src/app/_services/appointment.service';
 import { MembersService } from 'src/app/_services/members.service';
@@ -19,6 +16,7 @@ export class MakeAppointmentComponent implements OnInit{
   locationOptions = ['Targu Mures, Regina Maria', 'Targu Mures, Spitalul Central'];
   specializationOptions = ['Cardiologie', 'Ginecologie'];
   doctors: User[] = [];
+  appointmentDate: Date =new Date('');
   appointment: Appointment = {
     appointmentTime: new Date('2023-03-31'),
     location: '',

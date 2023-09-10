@@ -1,9 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { InputData } from '../_models/inputData';
-import { OutputData } from '../_models/outputData';
 import { Photo } from '../_models/photo';
 import { User } from '../_models/user';
 
@@ -33,9 +30,5 @@ export class AdminService {
 
   rejectPhoto(photoId: number) {
     return this.http.post(this.baseUrl + 'admin/reject-photo/' + photoId, {});
-  }
-
-  predictHeart(inputData: InputData): Observable<OutputData> {
-    return this.http.post<OutputData>(this.baseUrl + 'predict/prediction', inputData);
   }
 }

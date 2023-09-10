@@ -2,10 +2,21 @@
     <h1>Create Appointment</h1>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="appointmentTime">Appointment Time:</label>
-        <input type="datetime-local" class="form-control" id="appointmentTime" name="appointmentTime" 
-            [(ngModel)]="appointment.appointmentTime" required  min="{{ getCurrentDateTimeString() }}">
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate"
+          [(ngModel)]="appointment.appointmentTime" required>
       </div>
+      
+      <div class="form-group">
+        <label for="appointmentTime">Appointment Time:</label>
+        <select class="form-control" id="appointmentTime" name="appointmentTime" [(ngModel)]="appointmentDate">
+          <option value="">Select a time</option>
+          <option value="10:00:00">11:00 AM</option>
+          <option value="11:00:00">12:00 AM</option>
+          <!-- Add more time options as needed -->
+        </select>
+      </div>
+
       <div class="form-group">
         <label for="location">Location:</label>
         <select id="location" name="location" [(ngModel)]="appointment.location">

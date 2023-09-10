@@ -1,6 +1,7 @@
 
 namespace API.Controllers
 {
+    using API.Data;
     using API.DTOs;
     using API.Entities;
     using API.Interfaces;
@@ -61,6 +62,44 @@ namespace API.Controllers
             };
 
             return pacientDto;
+        }
+
+        [HttpPost("registerDoctor")]
+        public async Task<ActionResult<DoctorDto>> RegisterDoctor(RegisterDto registerDto)
+        {
+            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+
+            var doctor = new Doctor
+            {
+                UserName = registerDto.Username.ToLower(),
+                Gender = registerDto.Gender,
+                City = registerDto.City,
+                Country = registerDto.Country,
+                KnownAs = registerDto.KnownAs,
+                Interests = "",
+                Introduction = "Introduction",
+                LookingFor = registerDto.Gender,
+                Specialization = "Cardiologie",
+                Profession = "Doctor general"
+            };
+
+            var result = await _userManager.CreateAsync(doctor, registerDto.Password);
+
+            if(!result.Succeeded) return BadRequest(result.Errors);
+
+            var roleResult = await _userManager.AddToRoleAsync(doctor, "Moderator");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+
+            //this is to set the currentId of the new user to a token (for appointments)
+            var doctorDto = new DoctorDto
+            {
+                Username = doctor.UserName,
+                Token = await _tokenService.CreateToken(doctor),
+                Gender = doctor.Gender
+            };
+
+            return doctorDto;
         }
 
         [HttpPost("login")]

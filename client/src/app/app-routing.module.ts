@@ -6,7 +6,6 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
-import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
@@ -18,6 +17,7 @@ import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { MakeAppointmentComponent } from './appointments/make-appointment/make-appointment.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { UpdateAppointmentsComponent } from './appointments/update-appointments/update-appointments.component';
+import { PredictComponent } from './predict/predict/predict.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,6 +33,7 @@ const routes: Routes = [
       {path: 'appointments/make-appointment', component: MakeAppointmentComponent},
       {path: 'doctors', component: DoctorsComponent},
       {path: 'appointments/update-appointments', component: UpdateAppointmentsComponent},
+      {path: 'predict', component: PredictComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
     ]

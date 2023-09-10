@@ -21,7 +21,4 @@ export class DoctorsComponent implements OnInit{
       this.doctors = response;
     })
   }
-
-
-
 }

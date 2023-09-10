@@ -32,7 +32,7 @@ var corsBuilder = new CorsPolicyBuilder();
 corsBuilder.AllowAnyHeader();
 corsBuilder.AllowAnyMethod();
 corsBuilder.AllowCredentials();
-corsBuilder.WithOrigins("https://localhost:4200");
+corsBuilder.WithOrigins("http://localhost:4200");
 
 builder.Services.AddCors(options =>
 {

@@ -37,12 +37,20 @@
             </p>
         </div>
         <div class="form-group">
-          <label for="alcoholDrinking">Alcohol Drinking</label>
-          <input type="text" class="form-control" id="alcoholDrinking" [(ngModel)]="inputData.alcoholDrinking">
+          <p>Alcohol Drinking
+            <select [(ngModel)]="inputData.alcoholDrinking" style="width: 100px;">
+                <option value="Yes">Yes</option>
+                <option option value="No">No</option>
+              </select>
+          </p>
         </div>
         <div class="form-group">
-          <label for="stroke">Stroke</label>
-          <input type="text" class="form-control" id="stroke" [(ngModel)]="inputData.stroke">
+          <p>Stroke 
+            <select [(ngModel)]="inputData.stroke" style="width: 100px;">
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+              </select>
+          </p>
         </div>
         <div class="form-group">
           <label for="physicalHealth">Physical Health</label>
@@ -56,16 +64,24 @@
       <div class="col">
         <h4>Medical History</h4>
         <div class="form-group">
-          <label for="diffWalking">Difficulty Walking</label>
-          <input type="text" class="form-control" id="diffWalking" [(ngModel)]="inputData.diffWalking">
+          <p>Difficulty Walking 
+            <select [(ngModel)]="inputData.diffWalking" style="width: 100px;">
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+              </select>
+          </p>
         </div>
         <div class="form-group">
           <label for="diabetic">Diabetic</label>
           <input type="text" class="form-control" id="diabetic" [(ngModel)]="inputData.diabetic">
         </div>
         <div class="form-group">
-          <label for="physicalActivity">Physical Activity</label>
-          <input type="text" class="form-control" id="physicalActivity" [(ngModel)]="inputData.physicalActivity">
+          <p>Physical Activity
+            <select [(ngModel)]="inputData.physicalActivity" style="width: 100px;">
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+              </select>
+          </p>
         </div>
         <div class="form-group">
           <label for="genHealth">Gen Health</label>
@@ -76,12 +92,20 @@
             <input type="text" class="form-control" id="sleepTime" [(ngModel)]="inputData.sleepTime">
         </div>
         <div class="form-group">
-            <label for="asthma">Asthma</label>
-            <input type="text" class="form-control" id="asthma" [(ngModel)]="inputData.asthma">
+            <p>Asthma
+              <select [(ngModel)]="inputData.asthma" style="width: 100px;">
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+                </select>
+            </p>
         </div>
         <div class="form-group">
-            <label for="Kidney Disease">Kidney Disease</label>
-            <input type="text" class="form-control" id="Kidney Disease" [(ngModel)]="inputData.kidneyDisease">
+            <p>Kidney Disease
+              <select [(ngModel)]="inputData.kidneyDisease" style="width: 100px;">
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+                </select>
+            </p>
         </div>
     </div>
 </div>
@@ -91,17 +115,14 @@
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>You have a heart problem. Please make an appointment with your doctor.</p>
-      <button (click)="onMakeAppointment()" class="btn btn-primary btn-success center">Make an Appointment</button>
+      <p>There is a high cardiovascular risk. Please make an appointment with your doctor.</p>
+      <button *appHasRole="['Member']" (click)="onMakeAppointment()" class="btn btn-primary btn-success center">Make an Appointment</button>
     </div>
   </div>
 
   <div id="myModal2" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>You don't have a heart problem. Take care.</p>
+      <p>You don't have a cardiovascular risk. Take care.</p>
     </div>
   </div>
-
-
-
